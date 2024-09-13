@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "apollo-server-express": "^3.13.0"
+  },
+  "name": "mern-books",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "start": "node server/server.js",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "build": "cd client && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
