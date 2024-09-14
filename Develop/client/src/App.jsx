@@ -1,9 +1,10 @@
 import './App.css';
-import { Outlet, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-
-import {ApolloClient, InMemoryCashe, ApolloProvider, createHttpLink} from "@apollo/client";
+import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink} from "@apollo/client";
 import {setContext} from "@apollo/client/link/context";
+import SearchBooks from './pages/SearchBooks';
+import SavedBooks from "./pages/SavedBooks";
 
 const httpLink = createHttpLink({url: "/graphql"});
 const authLink = setContext((_,{headers}) => {
@@ -18,22 +19,20 @@ const authLink = setContext((_,{headers}) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cashe: new InMemoryCashe(),
+  cache: new InMemoryCache(),
 });
 
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
       <>
       <Navbar />
-      <Switch>
+      <Routes>
         <Route exact path= "/" component={SearchBooks}></Route>
         <Route exact path= "/saved" component={SavedBooks}></Route>
         <Route render ={() => <h1>Wrong page!</h1>}></Route>
-      </Switch>
+      </Routes>
     </>
-      </Router>
     </ApolloProvider>
   );
 }
