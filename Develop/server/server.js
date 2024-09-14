@@ -8,7 +8,7 @@ const {typeDefs, resolvers} = require('./schemas');
 
 async function start(){
   const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3005;
 
 const server = new ApolloServer({
   typeDefs, 
@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  res.sendFile(path.join(__dirname, "../client/index.html"));
 });
 
 db.once('open', () => {
