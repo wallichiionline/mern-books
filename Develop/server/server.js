@@ -4,6 +4,7 @@ const routes = require('./routes');
 const {ApolloServer } = require('apollo-server-express');
 const { authMiddleware } = require('./utils/auth');
 const {typeDefs, resolvers} = require('./schemas');
+const db = require('./config/connection');
 
 async function start(){
   const app = express();

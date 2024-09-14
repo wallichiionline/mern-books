@@ -1,16 +1,16 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink} from "@apollo/client";
-import {setContext} from "@apollo/client/link/context";
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from "./pages/SavedBooks";
 
-const httpLink = createHttpLink({url: "/graphql"});
-const authLink = setContext((_,{headers}) => {
+const httpLink = createHttpLink({ url: "/graphql" });
+const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("token");
-  return{
-    headers:{
+  return {
+    headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : ""
     }
@@ -26,13 +26,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <>
-      <Navbar />
-      <Routes>
-        <Route exact path= "/" component={SearchBooks}></Route>
-        <Route exact path= "/saved" component={SavedBooks}></Route>
-        <Route render ={() => <h1>Wrong page!</h1>}></Route>
-      </Routes>
-    </>
+        <Navbar />
+        <Outlet />
+      </>
     </ApolloProvider>
   );
 }
